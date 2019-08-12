@@ -2,6 +2,7 @@ import React, { useState, useEffect }from 'react'
 import Header from './Header'
 import Generos from './Generos'
 import NovoGeneros from './NovoGenero'
+import EditarGenero from './EditarGenero'
 
 import axios from 'axios'
 import {
@@ -27,6 +28,7 @@ function App () {
         <Header />
         <Route path='/' exact component={Home} />
         <Route path='/generos/novo' exact component={NovoGeneros} />
+        <Route path='/generos/:id' exact component={EditarGenero} />
         <Route path='/generos' exact component={Generos} />
         <pre>{JSON.stringify(data)}</pre>
       </div>

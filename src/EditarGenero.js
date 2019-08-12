@@ -1,17 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 
-const NovoGenero = () => {
+const EditarGenero = ({ match }) => {
     const [name, setName] = useState('')
     const [success, setSuccess] = useState(false)
+
+    useEffect(() => {
+        axios
+        .get('/api/genres/' + match.params.id)
+        .then(res => {
+            setName(res.data.name)
+        })
+    },[match.params.id])
+
+    console.log(match)
+
     const onChange = evt => {
         setName(evt.target.value)
     }
 
     const Save = () => {
         axios
-            .post('/api/genres', {
+            .put('/api/genres/' + match.params.id , {
                 name
             })
             .then(res => {
@@ -24,7 +35,7 @@ const NovoGenero = () => {
     }
     return(
         <div className='container'>
-            <h1>Novo Genêro</h1>
+            <h1>Editar Genêro</h1>
         <form>
              <div className='form-group'>
                 <label htmlFor='nome'>Nome</label>
@@ -35,4 +46,4 @@ const NovoGenero = () => {
         </div>
     )
 }
-export default NovoGenero
+export default EditarGenero
